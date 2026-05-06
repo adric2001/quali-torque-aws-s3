@@ -9,6 +9,12 @@ variable "bucket_prefix" {
   type        = string
   default     = "quali-torque-demo-"
 
+  validation {
+    condition     = can(regex("^[a-z0-9.-]+-$", var.bucket_prefix))
+    error_message = "The bucket_prefix must contain only lowercase letters, numbers, hyphens, and end with a hyphen."
+  }
+}
+
 variable "AWS_ACCESS_KEY_ID" {
   description = "AWS Access Key provided by Torque"
   type        = string
@@ -19,10 +25,4 @@ variable "AWS_SECRET_ACCESS_KEY" {
   description = "AWS Secret Key provided by Torque"
   type        = string
   sensitive   = true
-}
-
-  validation {
-    condition     = can(regex("^[a-z0-9.-]+-$", var.bucket_prefix))
-    error_message = "The bucket_prefix must contain only lowercase letters, numbers, hyphens, and end with a hyphen."
-  }
 }
