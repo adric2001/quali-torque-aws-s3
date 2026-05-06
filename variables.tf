@@ -9,7 +9,7 @@ variable "bucket_prefix" {
   type        = string
   default     = "quali-torque-demo-"
 
-  variable "AWS_ACCESS_KEY_ID" {
+variable "AWS_ACCESS_KEY_ID" {
   description = "AWS Access Key provided by Torque"
   type        = string
   sensitive   = true
