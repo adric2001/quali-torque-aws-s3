@@ -1,0 +1,33 @@
+spec_version: 2
+inputs:
+  agent:
+    type: agent
+    allowed-values:
+      - quali-home-assignment123
+    default: quali-home-assignment123
+  AWS_ACCESS_KEY_ID-quali_torque_aws_s3:
+    sensitive: true
+    type: string
+  AWS_SECRET_ACCESS_KEY-quali_torque_aws_s3:
+    sensitive: true
+    type: string
+outputs:
+  bucket_name:
+    value: '{{ .grains.quali_torque_aws_s3.outputs.bucket_name }}'
+  bucket_arn:
+    value: '{{ .grains.quali_torque_aws_s3.outputs.bucket_arn }}'
+grains:
+  quali_torque_aws_s3:
+    kind: terraform
+    spec:
+      source:
+        store: quali-torque-aws-s3
+        path: .
+      agent:
+        name: quali-home-assignment123
+      inputs:
+        - AWS_ACCESS_KEY_ID: '{{ .inputs.AWS_ACCESS_KEY_ID-quali_torque_aws_s3 }}'
+        - AWS_SECRET_ACCESS_KEY: '{{ .inputs.AWS_SECRET_ACCESS_KEY-quali_torque_aws_s3 }}'
+      outputs:
+        - bucket_name
+        - bucket_arn
